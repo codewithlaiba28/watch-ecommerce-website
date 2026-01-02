@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+hr {
+  border: none;
+  border-radius: 50px;
+  margin-top: 10px;
+  height: 3px;
+  width: 100%;
+  background: yellow;
+}
+li {
+  text-decoration: none;
+}
