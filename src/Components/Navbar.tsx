@@ -1,24 +1,106 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import "../Css/Navbar.css";
 
-const Navbar: React.FC = () => {
-    const [menu, setMenu] = useState<string>("Home")
-    console.log(menu)
+const Navbar = () => {
+  const [menu, setMenu] = useState<string>("Home");
   return (
     <div>
-        <ul><Link onClick={()=>{setMenu("Home")}} to='/'>Home</Link></ul>
-        <ul><Link to='/internationalbrands'>40+ Internationalbrands</Link></ul>
-        <ul><Link to='/allwatches'>All watches</Link></ul>
-        <ul><Link to='/men'>Men</Link></ul>
-        <ul><Link to='/women'>Women</Link></ul>
-        <ul><Link to='/store'>Store</Link></ul>
-        <ul><Link to='/smart'>Smart</Link></ul>
-        <ul><Link to='/offers'>Offers</Link></ul>
-        <ul><Link to='/brands'>Brands</Link></ul>
-        <ul><Link to='/contact'>Contact</Link></ul>
-        <ul><Link to='/cart'>Cart</Link></ul>
+      <ul>
+        <li
+          onClick={() => {
+            setMenu("Home");
+            localStorage.setItem("menu", "Home");
+          }}
+        >
+          {menu === "Home" ? <hr /> : <></>}
+          <Link style={{ textDecoration: "none" }} to="/">
+            Home
+          </Link>
+        </li>
+        <li
+          onClick={() => {
+            setMenu("40+ Internationalbrands");
+          }}
+        >
+          <Link to="/internationalbrands">40+ Internationalbrands</Link>
+          {menu === "40+ Internationalbrands" ? <hr /> : <></>}
+        </li>
+        <li
+          onClick={() => {
+            setMenu("All watches");
+          }}
+        >
+          <Link to="/allwatches">All watches</Link>
+          {menu === "All watches" ? <hr /> : <></>}
+        </li>
+        <li
+          onClick={() => {
+            setMenu("Men");
+          }}
+        >
+          <Link to="/men">Men</Link>
+          {menu === "Men" ? <hr /> : <></>}
+        </li>
+        <li
+          onClick={() => {
+            setMenu("Women");
+          }}
+        >
+          <Link to="/women">Women</Link>
+          {menu === "Women" ? <hr /> : <></>}
+        </li>
+        <li
+          onClick={() => {
+            setMenu("Store");
+          }}
+        >
+          <Link to="/store">Store</Link>
+          {menu === "Store" ? <hr /> : <></>}
+        </li>
+        <li
+          onClick={() => {
+            setMenu("Smart");
+          }}
+        >
+          <Link to="/smart">Smart</Link>
+          {menu === "Smart" ? <hr /> : <></>}
+        </li>
+        <li
+          onClick={() => {
+            setMenu("Offers");
+          }}
+        >
+          <Link to="/offers">Offers</Link>
+          {menu === "Offers" ? <hr /> : <></>}
+        </li>
+        <li
+          onClick={() => {
+            setMenu("Brands");
+          }}
+        >
+          <Link to="/brands">Brands</Link>
+          {menu === "Brands" ? <hr /> : <></>}
+        </li>
+        <li
+          onClick={() => {
+            setMenu("Contact");
+          }}
+        >
+          <Link to="/contact">Contact</Link>
+          {menu === "Contact" ? <hr /> : <></>}
+        </li>
+        <li
+          onClick={() => {
+            setMenu("Cart");
+          }}
+        >
+          <Link to="/cart">Cart</Link>
+          {menu === "Cart" ? <hr /> : <></>}
+        </li>
+      </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
