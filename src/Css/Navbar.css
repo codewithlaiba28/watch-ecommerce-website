@@ -1,6 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Leckerli+One&family=Lobster&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+.Leckerli {
+  font-family: "Leckerli One", cursive;
+}
+.light-blue {
+  color: #00b0ad;
+}
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 hr {
@@ -9,7 +15,7 @@ hr {
   margin-top: 10px;
   height: 3px;
   width: 100%;
-  background: yellow;
+  background: #00b0ad;
 }
 li {
   text-decoration: none;
