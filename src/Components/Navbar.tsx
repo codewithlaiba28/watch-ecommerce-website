@@ -1,31 +1,40 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Css/Navbar.css";
+import Search from "../assets/Logo/search.png";
+import User from "../assets/Logo/user.png";
+import Cart from "../assets/Logo/cart.png";
 
 const Navbar = () => {
   const [menu, setMenu] = useState<string>("Home");
   return (
-    <div>
-      <ul>
-        <li
+    <div className="px-10 py-4 bg-red-500 flex justify-between items-center  h-20">
+      <div className="items-center text-center mr-16">
+        <h1
+          className="Leckerli text-3xl"
           onClick={() => {
             setMenu("Home");
             localStorage.setItem("menu", "Home");
           }}
         >
-          {menu === "Home" ? <hr /> : <></>}
           <Link style={{ textDecoration: "none" }} to="/">
-            Home
+            Wayne
           </Link>
-        </li>
-        <li
-          onClick={() => {
-            setMenu("40+ Internationalbrands");
-          }}
-        >
-          <Link to="/internationalbrands">40+ Internationalbrands</Link>
-          {menu === "40+ Internationalbrands" ? <hr /> : <></>}
-        </li>
+        </h1>
+        <p className="font-light text-sm">
+          Watch Store
+        </p>
+      </div>
+      <div
+        className="mr-12 text-base font-medium"
+        onClick={() => {
+          setMenu("40+ Internationalbrands");
+        }}
+      >
+        <Link to="/internationalbrands">40+ Internationalbrands</Link>
+        {menu === "40+ Internationalbrands" ? <hr /> : <></>}
+      </div>
+      <ul className="flex justify-between items-center gap-10 text-base font-normal">
         <li
           onClick={() => {
             setMenu("All watches");
@@ -68,14 +77,6 @@ const Navbar = () => {
         </li>
         <li
           onClick={() => {
-            setMenu("Offers");
-          }}
-        >
-          <Link to="/offers">Offers</Link>
-          {menu === "Offers" ? <hr /> : <></>}
-        </li>
-        <li
-          onClick={() => {
             setMenu("Brands");
           }}
         >
@@ -84,21 +85,39 @@ const Navbar = () => {
         </li>
         <li
           onClick={() => {
+            setMenu("Offers");
+          }}
+        >
+          <Link to="/offers">Offers</Link>
+          {menu === "Offers" ? <hr /> : <></>}
+        </li>
+      </ul>
+      <div className="flex justify-between items-center gap-8 text-base font-medium pr-5">
+        <p
+          onClick={() => {
+            setMenu("Search");
+          }}
+        >
+          <Link to="/search"><img src={Search} alt="" /></Link>
+          {menu === "" ? <hr /> : <></>}
+        </p>
+        <p
+          onClick={() => {
             setMenu("Contact");
           }}
         >
-          <Link to="/contact">Contact</Link>
-          {menu === "Contact" ? <hr /> : <></>}
-        </li>
-        <li
+          <Link to="/contact"><img src={User} alt="" /></Link>
+          {menu === "" ? <hr /> : <></>}
+        </p>
+        <p
           onClick={() => {
             setMenu("Cart");
           }}
         >
-          <Link to="/cart">Cart</Link>
-          {menu === "Cart" ? <hr /> : <></>}
-        </li>
-      </ul>
+          <Link to="/cart"><img src={Cart} alt="" /></Link>
+          {menu === "" ? <hr /> : <></>}
+        </p>
+      </div>
     </div>
   );
 };
