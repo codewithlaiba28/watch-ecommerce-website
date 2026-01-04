@@ -1,5 +1,9 @@
 import { useState } from "react"
 import "../style.css"
+import trust_img_1 from "../assets/Trust-badges/trust1.png"
+import trust_img_2 from "../assets/Trust-badges/trust2.png"
+import trust_img_3 from "../assets/Trust-badges/trust3.png"
+import trust_img_4 from "../assets/Trust-badges/trust4.png"
 import hero_img_1 from "../assets/Components-image/Hero1.png"
 // import hero_img_2 from "../assets/Components-image/Hero2.png"
 import hero_img_3 from "../assets/Components-image/Hero3.png"
@@ -52,7 +56,31 @@ const Home = () => {
           </p>
         </div>
       </div>
+      <div className="trust-bagers lato bg-white px-4 sm:px-8 md:px-12 lg:px-15 py-4">
+        <div className="flex flex-wrap gap-6 items-center justify-center md:justify-between">
 
+          <div className="flex flex-col md:flex-row text-center items-center gap-2 md:gap-4 text-sm sm:text-base">
+            <img src={trust_img_1} alt="Trust Badge" className="w-12 h-12 md:w-10 md:h-10 object-contain" />
+            <p className="font-medium whitespace-nowrap">BUY WITH TRUST</p>
+          </div>
+
+          <div className="flex flex-col md:flex-row text-center items-center gap-2 md:gap-4 text-sm sm:text-base">
+            <img src={trust_img_3} alt="Trust Badge" className="w-12 h-12 md:w-10 md:h-10 object-contain" />
+            <p className="font-medium whitespace-nowrap">FREE BATTERY REPLACEMENT</p>
+          </div>
+
+          <div className="hidden md:flex flex-row text-center items-center gap-4 text-base">
+            <img src={trust_img_2} alt="Trust Badge" className="w-10 h-10 object-contain" />
+            <p className="font-medium whitespace-nowrap">EARN NEU POINTS</p>
+          </div>
+
+          <div className="hidden sm:flex flex-col md:flex-row text-center items-center gap-2 md:gap-4 text-sm sm:text-base">
+            <img src={trust_img_4} alt="Trust Badge" className="w-12 h-12 md:w-10 md:h-10 object-contain" />
+            <p className="font-medium whitespace-nowrap">INTEREST FREE EMI</p>
+          </div>
+
+        </div>
+      </div>
     </div>
   )
 }
