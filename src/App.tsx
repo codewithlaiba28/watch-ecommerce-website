@@ -8,7 +8,7 @@ import Women from './Pages/Women.tsx'
 import Store from './Pages/Store.tsx'
 import Smart from './Pages/Smart.tsx'
 import Offers from './Pages/Offers.tsx'
-import Brands from '../Brands.tsx'
+import Brands from './Pages/Brands.tsx'
 import Contact from './Pages/Contact.tsx'
 import Cart from './Pages/Cart.tsx'
 import Search from "./Pages/Search.tsx"
