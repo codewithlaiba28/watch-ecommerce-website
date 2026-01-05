@@ -8,6 +8,9 @@
 .cyan {
   color: var(--cyan-color);
 }
+.cyan-bg {
+  background: #00b0ad;
+}
 .lato {
   font-family: "Lato", sans-serif;
 }
