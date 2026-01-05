@@ -7,7 +7,12 @@ import trust_img_4 from "../assets/Trust-badges/trust4.png"
 import hero_img_1 from "../assets/Components-image/Hero1.png"
 // import hero_img_2 from "../assets/Components-image/Hero2.png"
 import hero_img_3 from "../assets/Components-image/Hero3.png"
+import Featured from "../Components/Featured"
 // import hero_img_4 from "../assets/Components-image/Hero4.png"
+import Feature_image_1 from "../assets/Components-image/Feature1.png"
+// import Feature_image_2 from "../assets/Components-image/Feature2.png"
+// import Feature_image_3 from "../assets/Components-image/Feature3.png"
+// import Feature_image_4 from "../assets/Components-image/Feature4.png"
 
 const Home = () => {
   const heroImages: string[] = [
@@ -80,6 +85,11 @@ const Home = () => {
           </div>
 
         </div>
+      </div>
+      <div className="features-section">
+        <Featured features={{
+          image: Feature_image_1, title: "BEST CHRONOGRAPH WATCHES", text: "Swiss chronograph watches are renowned for their precision and craftsmanship, and the Chronograph movement literally means “time writer” but essentially means a stopwatch."
+        }} />
       </div>
     </div>
   )
