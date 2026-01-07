@@ -14,7 +14,35 @@ import Feature_image_1 from "../assets/Components-image/Feature1.png"
 // import Feature_image_3 from "../assets/Components-image/Feature3.png"
 // import Feature_image_4 from "../assets/Components-image/Feature4.png"
 
+const FeaturedData = [
+  {
+    image: Feature_image_1,
+    title: "BEST CHRONOGRAPH WATCHES",
+    text: "Swiss chronograph ."
+  },
+  {
+    image: Feature_image_1,
+    title: "BEST CHRONOGRAPH WATCHES",
+    text: "Swiss chronograph watches  and craftsmanship."
+  },
+  {
+    image: Feature_image_1,
+    title: "BEST CHRONOGRAPH WATCHES",
+    text: "Swiss chronograph watches are renowned for their precision and craftsmanship."
+  }
+]
+
 const Home = () => {
+  const [index, setIndex] = useState(0)
+
+  const next = () => {
+    setIndex((prev) => (prev + 1) % FeaturedData.length)
+  };
+  const prev = () => {
+    setIndex((prev) => (prev - 1 + FeaturedData.length) % FeaturedData.length)
+  };
+
+
   const heroImages: string[] = [
     hero_img_1,
     // hero_img_2,
@@ -87,9 +115,15 @@ const Home = () => {
         </div>
       </div>
       <div className="features-section">
-        <Featured features={{
-          image: Feature_image_1, title: "BEST CHRONOGRAPH WATCHES", text: "Swiss chronograph watches are renowned for their precision and craftsmanship, and the Chronograph movement literally means “time writer” but essentially means a stopwatch."
-        }} />
+        <div className="relative">
+          <Featured features={FeaturedData[index]} />
+
+          <div className="flex gap-4 mt-4">
+            <button onClick={prev}>Prev</button>
+            <button onClick={next}>Next</button>
+          </div>
+        </div>
+
       </div>
     </div>
   )
