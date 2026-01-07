@@ -114,13 +114,12 @@ const Home = () => {
 
         </div>
       </div>
-      <div className="features-section">
+      <div className="features-section py-10 ">
         <div className="relative">
-          <Featured features={FeaturedData[index]} />
-
           <div className="flex gap-4 mt-4">
-            <button onClick={prev}>Prev</button>
-            <button onClick={next}>Next</button>
+            <button className="pl-20" onClick={prev}>Prev</button>
+            <Featured features={FeaturedData[index]} />
+            <button className="pr-20" onClick={next}>Next</button>
           </div>
         </div>
 
