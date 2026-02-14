@@ -1,200 +1,112 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import "../Css/Navbar.css";
-import Search from "../assets/Logo/search.png";
-import User from "../assets/Logo/user.png";
-import Cart from "../assets/Logo/cart.png";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
-  const [menu, setMenu] = useState<string>("Home");
-  const [open, setOpen] = useState<boolean>(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const { totalItems } = useCart();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: '40+ International Brands', path: '/internationalbrands' },
+    { name: 'All Watches', path: '/allwatches' },
+    { name: 'Men', path: '/men' },
+    { name: 'Women', path: '/women' },
+    { name: 'Smart', path: '/smart' },
+    { name: 'Brands', path: '/brands' },
+    { name: 'Store', path: '/store' },
+    { name: 'Offers', path: '/offers' },
+  ];
+
+  const isActive = (path: string) => location.pathname === path;
+
   return (
-    <div>
-      <nav className="px-10 py-4 nav-bg flex justify-between items-center h-20">
-        <div className="items-center text-center mr-16">
-          <h1
-            className="Leckerli text-3xl"
-            onClick={() => {
-              setMenu("Home");
-              localStorage.setItem("menu", "Home");
-            }}
-          >
-            <Link style={{ textDecoration: "none" }} to="/">
-              Wayne
-            </Link>
-          </h1>
-          <p className="font-light text-sm">
-            Watch Store
-          </p>
-        </div>
-        <div
-          className="hidden md:mr-12 text-base font-medium"
-          onClick={() => {
-            setMenu("40+ Internationalbrands");
-          }}
-        >
-          <Link to="/internationalbrands">40+ Internationalbrands</Link>
-          {menu === "40+ Internationalbrands" ? <hr /> : <></>}
-        </div>
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden flex flex-col gap-1"
-        >
-          {open ? (
-            // ❌ Cross icon
-            <>
-              <span className="w-6 h-0.5 bg-black rotate-45 translate-y-1.5"></span>
-              <span className="w-6 h-0.5 bg-black opacity-0"></span>
-              <span className="w-6 h-0.5 bg-black -rotate-45 -translate-y-1.5"></span>
-            </>
-          ) : (
-            // ☰ Hamburger icon
-            <>
-              <span className="w-6 h-0.5 bg-black"></span>
-              <span className="w-6 h-0.5 bg-black"></span>
-              <span className="w-6 h-0.5 bg-black"></span>
-            </>
-          )}
-        </button>
-
-        {open && (
-          <div className="absolute top-20 right-0 bg-white shadow-lg md:hidden z-50">
-            <ul className="flex flex-col gap-4 p-10 text-base font-normal">
-              <li><Link onClick={() => setOpen(false)} to="/internationalbrands">40+ Internationalbrands</Link></li>
-              <li><Link onClick={() => setOpen(false)} to="/allwatches">All watches</Link></li>
-              <li><Link onClick={() => setOpen(false)} to="/men">Men</Link></li>
-              <li><Link onClick={() => setOpen(false)} to="/women">Women</Link></li>
-              <li><Link onClick={() => setOpen(false)} to="/store">Store</Link></li>
-              <li><Link onClick={() => setOpen(false)} to="/smart">Smart</Link></li>
-              <li><Link onClick={() => setOpen(false)} to="/brands">Brands</Link></li>
-              <li><Link onClick={() => setOpen(false)} to="/offers">Offers</Link></li>
-            </ul>
-          </div>
-        )}
-
-        <ul className="hidden md:flex justify-between items-center gap-10 text-base font-normal">
-          <li
-            onClick={() => {
-              setMenu("All watches");
-            }}
-          >
-            <Link to="/allwatches">All watches</Link>
-            {menu === "All watches" ? <hr /> : <></>}
-          </li>
-          <li
-            onClick={() => {
-              setMenu("Men");
-            }}
-          >
-            <Link to="/men">Men</Link>
-            {menu === "Men" ? <hr /> : <></>}
-          </li>
-          <li
-            onClick={() => {
-              setMenu("Women");
-            }}
-          >
-            <Link to="/women">Women</Link>
-            {menu === "Women" ? <hr /> : <></>}
-          </li>
-          <li
-            onClick={() => {
-              setMenu("Store");
-            }}
-          >
-            <Link to="/store">Store</Link>
-            {menu === "Store" ? <hr /> : <></>}
-          </li>
-          <li
-            onClick={() => {
-              setMenu("Smart");
-            }}
-          >
-            <Link to="/smart">Smart</Link>
-            {menu === "Smart" ? <hr /> : <></>}
-          </li>
-          <li
-            onClick={() => {
-              setMenu("Brands");
-            }}
-          >
-            <Link to="/brands">Brands</Link>
-            {menu === "Brands" ? <hr /> : <></>}
-          </li>
-          <li
-            onClick={() => {
-              setMenu("Offers");
-            }}
-          >
-            <Link to="/offers">Offers</Link>
-            {menu === "Offers" ? <hr /> : <></>}
-          </li>
-        </ul>
-        <div className="hidden lg:flex justify-between items-center gap-8 text-base font-medium pr-5">
-          <p
-            onClick={() => {
-              setMenu("Search");
-            }}
-          >
-            <Link to="/search"><img src={Search} alt="" /></Link>
-            {menu === "" ? <hr /> : <></>}
-          </p>
-          <p
-            onClick={() => {
-              setMenu("Contact");
-            }}
-          >
-            <Link to="/contact"><img src={User} alt="" /></Link>
-            {menu === "" ? <hr /> : <></>}
-          </p>
-          <p
-            onClick={() => {
-              setMenu("Cart");
-            }}
-          >
-            <Link to="/cart"><img src={Cart} alt="" /></Link>
-            {menu === "" ? <hr /> : <></>}
-          </p>
-        </div>
-      </nav>
-
-      <nav className="flex lg:hidden justify-between items-center gap-5 text-base font-medium pr-5 bg-white px-10 py-1">
-        <p className="w-full flex justify-center">
-          <Link to="/search" className="w-full md:w-1/2">
-            <div className="flex items-center gap-3 border border-gray-300 rounded-full px-4 py-2 w-full bg-gray-50">
-
-              {/* Search Input */}
-              <input
-                type="text"
-                placeholder="Search..."
-                className="outline-none bg-transparent text-sm w-full"
-              />
-
-              {/* Search Icon */}
-              <img src={Search} alt="search" className="w-5 h-5" />
-            </div>
+    <nav className={`fixed w-full top-0 z-50 font-sans transition-all duration-700 border-b ${isScrolled
+      ? 'bg-wayne-black/90 backdrop-blur-xl border-wayne-border shadow-2xl py-0'
+      : 'bg-wayne-black/40 backdrop-blur-md border-white/5 py-1'
+      }`}>
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex justify-between items-center h-20">
+          {/* Logo */}
+          <Link to="/" className="flex flex-col group">
+            <span className="text-2xl font-serif font-bold italic leading-none tracking-tighter text-white group-hover:text-wayne-teal transition-colors">Wayne</span>
+            <span className="text-[10px] uppercase tracking-[0.3em] text-wayne-teal mt-0.5 group-hover:tracking-[0.4em] transition-all">Watch Store</span>
           </Link>
-        </p>
 
+          {/* Desktop Nav Links */}
+          <div className="hidden lg:flex items-center space-x-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`text-[11px] uppercase tracking-widest font-bold transition-colors hover:text-wayne-teal ${isActive(link.path) ? 'text-wayne-teal' : 'text-gray-300'
+                  }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
 
-        <p
-          onClick={() => {
-            setMenu("Contact");
-          }}
-        >
-          <Link to="/contact"><img src={User} alt="" /></Link>
-          {menu === "" ? <hr /> : <></>}
-        </p>
-        <p
-          onClick={() => {
-            setMenu("Cart");
-          }}
-        >
-          <Link to="/cart"><img src={Cart} alt="" /></Link>
-          {menu === "" ? <hr /> : <></>}
-        </p>
-      </nav>
-    </div>
+          {/* Icons */}
+          <div className="flex items-center space-x-4 md:space-x-6">
+            <Link to="/search" className="text-gray-300 hover:text-wayne-teal transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+            </Link>
+            <Link to="/profile" className="text-gray-300 hover:text-wayne-teal transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+            </Link>
+            <Link to="/cart" className="relative text-gray-300 hover:text-wayne-teal transition-all hover:scale-110 active:scale-90" aria-label="View Cart">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
+              {totalItems > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 bg-wayne-teal text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black animate-in zoom-in duration-300">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="lg:hidden text-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></svg>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-wayne-black border-t border-wayne-border py-6 shadow-2xl">
+          <div className="flex flex-col space-y-6 px-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`text-xs uppercase tracking-[0.2em] font-bold ${isActive(link.path) ? 'text-wayne-teal' : 'text-gray-300'
+                  }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </nav>
   );
 };
 
