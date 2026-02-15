@@ -7,7 +7,7 @@ const Offers = () => {
   return (
     <CategoryPage
       title="Exclusive Offers"
-      categoryBanner="/images/forthpage/forthpage1.png"
+      categoryBanner="/images/generated/offers_hero_banner_1771144602125.png"
       watches={saleWatches}
     />
   );

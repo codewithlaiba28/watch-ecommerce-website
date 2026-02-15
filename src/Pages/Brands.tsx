@@ -29,16 +29,20 @@ const Brands = () => {
           <p className="text-wayne-text-muted text-[10px] uppercase tracking-[0.5em] font-black italic">The definitive directory of horological excellence</p>
         </header>
 
-        {/* Alphabet Filter - Refined Dark */}
-        <div className="flex flex-wrap justify-center gap-6 mb-24 border-b border-wayne-border pb-12 animate-in fade-in duration-1000 delay-300">
-          {brandLetters.map(letter => (
-            <button
-              key={letter}
-              className="w-12 h-12 flex items-center justify-center text-[10px] font-black text-gray-500 hover:text-white hover:bg-wayne-teal/20 border border-wayne-border transition-all duration-500 rounded-full"
-            >
-              {letter}
-            </button>
-          ))}
+        {/* Alphabet Filter - Refined Dark & Packed */}
+        <div className="flex flex-wrap justify-center gap-3 mb-24 animate-in fade-in duration-1000 delay-300">
+          {brandLetters
+            .filter(letter => brandList.some(b => b.letter === letter))
+            .map(letter => (
+              <button
+                key={letter}
+                className="w-12 h-12 flex items-center justify-center text-[11px] font-black transition-all duration-500 rounded-none border relative overflow-hidden group text-white border-wayne-border hover:border-wayne-teal hover:text-wayne-teal hover:-translate-y-1"
+              >
+                <span className="relative z-10">{letter}</span>
+                <span className="absolute inset-0 bg-wayne-teal/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-wayne-teal scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
+              </button>
+            ))}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">

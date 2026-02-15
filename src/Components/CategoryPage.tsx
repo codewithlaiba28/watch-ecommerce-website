@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import WatchCard from './WatchCard';
 import type { Watch } from '../types';
+import { useCart } from '../context/CartContext';
 
 interface CategoryPageProps {
     title: string;
-    description: string;
+    description?: string;
     categoryBanner: string;
     watches: Watch[];
 }
 
 const CategoryPage = ({ title, categoryBanner, watches }: CategoryPageProps) => {
+    const { formatPrice } = useCart();
     const [activeBrand, setActiveBrand] = useState('All');
     const [priceRange, setPriceRange] = useState(5000000);
     const [showAllBrands, setShowAllBrands] = useState(false);
@@ -25,17 +27,18 @@ const CategoryPage = ({ title, categoryBanner, watches }: CategoryPageProps) => 
     return (
         <div className="bg-wayne-bg min-h-screen pt-20">
             {/* Extended Banner Height for Category */}
-            <div className="h-[400px] md:h-[500px] relative overflow-hidden bg-wayne-black text-white flex items-center justify-center">
+            <div className="h-[400px] md:h-[500px] relative overflow-hidden bg-wayne-black flex items-center justify-center">
                 <div className="absolute inset-0">
-                    <img src={categoryBanner} alt={title} className="w-full h-full object-cover opacity-60" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-wayne-bg/20 to-wayne-bg"></div>
+                    <img src={categoryBanner} alt={title} className="w-full h-full object-cover opacity-40 scale-110" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-wayne-teal/20 via-transparent to-wayne-bg"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-wayne-bg/40 to-wayne-bg"></div>
                 </div>
-                <div className="relative z-10 text-center px-4">
-                    <h1 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter drop-shadow-2xl">{title}</h1>
-                    <div className="flex items-center justify-center space-x-4 mt-6">
-                        <span className="w-12 h-[1px] bg-wayne-teal"></span>
-                        <p className="text-xs uppercase tracking-[0.4em] text-wayne-teal font-bold">Exquisite Collection</p>
-                        <span className="w-12 h-[1px] bg-wayne-teal"></span>
+                <div className="relative z-10 text-center px-4 animate-in fade-in slide-in-from-top-12 duration-1000">
+                    <h1 className="text-6xl md:text-8xl font-bold uppercase tracking-tighter drop-shadow-2xl text-white">{title}</h1>
+                    <div className="flex items-center justify-center space-x-6 mt-8">
+                        <span className="w-16 h-[1px] bg-wayne-teal/50"></span>
+                        <p className="text-[10px] uppercase tracking-[0.5em] text-wayne-teal font-black italic">Exquisite Selection</p>
+                        <span className="w-16 h-[1px] bg-wayne-teal/50"></span>
                     </div>
                 </div>
             </div>
@@ -59,7 +62,7 @@ const CategoryPage = ({ title, categoryBanner, watches }: CategoryPageProps) => 
                                     <button
                                         key={brand}
                                         onClick={() => setActiveBrand(brand)}
-                                        className={`block w-full text-left text-[10px] uppercase tracking-[0.2em] transition-all duration-300 font-bold py-1.5 ${activeBrand === brand ? 'text-wayne-teal pl-3 border-l-[2px] border-wayne-teal' : 'text-gray-500 hover:text-white hover:pl-2'}`}
+                                        className={`block w-full text-left text-[10px] uppercase tracking-[0.2em] transition-all duration-300 font-bold py-1.5 border-l-[1px] ${activeBrand === brand ? 'text-wayne-teal pl-3 border-wayne-teal' : 'text-gray-500 hover:text-white hover:pl-2 border-transparent hover:border-wayne-teal/30'}`}
                                     >
                                         {brand}
                                     </button>
@@ -88,8 +91,8 @@ const CategoryPage = ({ title, categoryBanner, watches }: CategoryPageProps) => 
                                 className="w-full accent-wayne-teal bg-wayne-border h-1 rounded-lg appearance-none cursor-pointer"
                             />
                             <div className="flex justify-between mt-3 text-[10px] font-bold text-white tracking-[0.1em]">
-                                <span>₹10K</span>
-                                <span className="text-wayne-teal font-black">UP TO ₹{(priceRange / 100000).toFixed(1)}L</span>
+                                <span>{formatPrice(10000)}</span>
+                                <span className="text-wayne-teal font-black">UP TO {formatPrice(priceRange)}</span>
                             </div>
                         </div>
 

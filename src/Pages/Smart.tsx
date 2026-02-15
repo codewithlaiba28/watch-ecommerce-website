@@ -7,7 +7,7 @@ const Smart = () => {
   return (
     <CategoryPage
       title="Smart Watches"
-      categoryBanner="/images/sixthpage/image1.png"
+      categoryBanner="/images/generated/smart_hero_banner_1771144581723.png"
       watches={smartWatches}
     />
   );

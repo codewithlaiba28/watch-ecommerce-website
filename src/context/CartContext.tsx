@@ -15,6 +15,9 @@ interface CartContextType {
     totalItems: number;
     subtotal: number;
     totalPrice: number;
+    currency: 'USD' | 'INR';
+    setCurrency: (currency: 'USD' | 'INR') => void;
+    formatPrice: (amount: number) => string;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -59,6 +62,26 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     const clearCart = () => setCart([]);
 
+    const [currency, setCurrency] = useState<'USD' | 'INR'>('USD');
+    const exchangeRate = 83;
+
+    const formatPrice = (amount: number) => {
+        if (currency === 'USD') {
+            const usdAmount = amount / exchangeRate;
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(usdAmount);
+        } else {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+    };
+
     const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     const totalPrice = subtotal; // Can add taxes/shipping later
@@ -72,7 +95,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             clearCart,
             totalItems,
             subtotal,
-            totalPrice
+            totalPrice,
+            currency,
+            setCurrency,
+            formatPrice
         }}>
             {children}
         </CartContext.Provider>

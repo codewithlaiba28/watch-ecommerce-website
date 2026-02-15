@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, totalPrice, totalItems } = useCart();
+  const { cart, removeFromCart, updateQuantity, totalPrice, totalItems, currency, setCurrency, formatPrice } = useCart();
 
   if (cart.length === 0) {
     return (
@@ -25,7 +25,24 @@ const Cart = () => {
           <h1 className="text-4xl md:text-5xl font-bold uppercase tracking-tighter text-white">
             Shopping <span className="text-wayne-teal">Bag</span>
           </h1>
-          <span className="text-xs font-bold text-wayne-teal uppercase tracking-[0.4em] mt-4 md:mt-0">{totalItems} Acquisitions</span>
+          <div className="flex items-center gap-8 mt-4 md:mt-0">
+            {/* Premium Currency Toggle */}
+            <div className="bg-wayne-black border border-wayne-border p-1 flex items-center">
+              <button
+                onClick={() => setCurrency('USD')}
+                className={`px-4 py-1.5 text-[10px] font-black tracking-widest transition-all ${currency === 'USD' ? 'bg-wayne-teal text-white' : 'text-gray-500 hover:text-white'}`}
+              >
+                USD
+              </button>
+              <button
+                onClick={() => setCurrency('INR')}
+                className={`px-4 py-1.5 text-[10px] font-black tracking-widest transition-all ${currency === 'INR' ? 'bg-wayne-teal text-white' : 'text-gray-500 hover:text-white'}`}
+              >
+                INR
+              </button>
+            </div>
+            <span className="text-xs font-bold text-wayne-teal uppercase tracking-[0.4em]">{totalItems} Acquisitions</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
@@ -61,7 +78,7 @@ const Cart = () => {
                   </div>
 
                   <div className="text-right min-w-[120px]">
-                    <p className="text-xl font-bold text-white tracking-tight">₹ {(item.price * item.quantity).toLocaleString()}</p>
+                    <p className="text-xl font-bold text-white tracking-tight">{formatPrice(item.price * item.quantity)}</p>
                   </div>
 
                   <button
@@ -83,7 +100,7 @@ const Cart = () => {
               <div className="space-y-6 mb-10">
                 <div className="flex justify-between text-[11px] uppercase tracking-[0.2em] text-wayne-text-muted font-bold">
                   <span>Subtotal ({totalItems} items)</span>
-                  <span className="text-white">₹ {totalPrice.toLocaleString()}</span>
+                  <span className="text-white">{formatPrice(totalPrice)}</span>
                 </div>
                 <div className="flex justify-between text-[11px] uppercase tracking-[0.2em] text-wayne-text-muted font-bold">
                   <span>Concierge Delivery</span>
@@ -95,7 +112,7 @@ const Cart = () => {
                 </div>
                 <div className="pt-6 border-t border-wayne-border flex justify-between items-baseline">
                   <span className="font-black uppercase tracking-[0.3em] text-red-500/80 text-[10px]">Total Investment</span>
-                  <span className="text-4xl font-bold text-wayne-teal tracking-tighter">₹ {totalPrice.toLocaleString()}</span>
+                  <span className="text-4xl font-bold text-wayne-teal tracking-tighter">{formatPrice(totalPrice)}</span>
                 </div>
               </div>
 

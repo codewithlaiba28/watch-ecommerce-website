@@ -2,7 +2,7 @@ import CategoryPage from '../components/CategoryPage';
 import { WATCH_COLLECTION } from '../types';
 
 const Men = () => {
-  const menWatches = WATCH_COLLECTION.filter(w => w.gender === 'Men' || w.gender === 'Unisex');
+  const menWatches = WATCH_COLLECTION.filter(w => w.gender === 'Men');
 
   return (
     <CategoryPage

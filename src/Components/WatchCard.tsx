@@ -6,7 +6,7 @@ interface WatchCardProps {
 }
 
 const WatchCard = ({ watch }: WatchCardProps) => {
-    const { addToCart } = useCart();
+    const { addToCart, formatPrice } = useCart();
 
     return (
         <div className="bg-wayne-card border border-wayne-border group overflow-hidden flex flex-col h-full hover:shadow-2xl hover:shadow-wayne-teal/10 transition-all duration-700 rounded-sm">
@@ -16,16 +16,19 @@ const WatchCard = ({ watch }: WatchCardProps) => {
                     src={watch.image}
                     alt={watch.name}
                     className="relative z-10 w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                    onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1547996160-81dfa63595dd?q=80&w=300&auto=format&fit=crop';
+                    }}
                 />
 
                 {/* Overlay with Quick Add */}
                 <div className="absolute inset-0 bg-wayne-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-8 z-20">
                     <button
                         onClick={(e) => {
-                            e.preventDefault();
+                            e.stopPropagation();
                             addToCart(watch);
                         }}
-                        className="bg-wayne-teal text-white text-[10px] uppercase font-bold tracking-widest px-8 py-3 shadow-2xl transform translate-y-6 group-hover:translate-y-0 transition-all duration-700 hover:bg-white hover:text-wayne-black"
+                        className="bg-wayne-teal text-white text-[10px] uppercase font-bold tracking-widest px-8 py-3 shadow-2xl transform translate-y-6 group-hover:translate-y-0 transition-all duration-700 hover:bg-white hover:text-wayne-black active:scale-95"
                     >
                         Quick Add
                     </button>
@@ -54,11 +57,11 @@ const WatchCard = ({ watch }: WatchCardProps) => {
                     <div className="flex flex-col text-white">
                         {watch.onSale && watch.discountPrice ? (
                             <>
-                                <span className="text-wayne-teal font-bold text-lg leading-none">₹{watch.discountPrice.toLocaleString()}</span>
-                                <span className="text-gray-500 line-through text-[10px] mt-1">₹{watch.price.toLocaleString()}</span>
+                                <span className="text-wayne-teal font-bold text-lg leading-none">{formatPrice(watch.discountPrice)}</span>
+                                <span className="text-gray-500 line-through text-[10px] mt-1">{formatPrice(watch.price)}</span>
                             </>
                         ) : (
-                            <span className="font-bold text-lg leading-none">₹{watch.price.toLocaleString()}</span>
+                            <span className="font-bold text-lg leading-none">{formatPrice(watch.price)}</span>
                         )}
                     </div>
                     <button
