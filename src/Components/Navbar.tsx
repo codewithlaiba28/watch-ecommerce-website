@@ -25,6 +25,7 @@ const Navbar = () => {
     { name: 'Brands', path: '/brands' },
     { name: 'Store', path: '/store' },
     { name: 'Offers', path: '/offers' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -61,7 +62,7 @@ const Navbar = () => {
             <Link to="/search" className="text-gray-300 hover:text-wayne-teal transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
             </Link>
-            <Link to="/profile" className="text-gray-300 hover:text-wayne-teal transition-colors">
+            <Link to="/contact" className="text-gray-300 hover:text-wayne-teal transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
             </Link>
             <Link to="/cart" className="relative text-gray-300 hover:text-wayne-teal transition-all hover:scale-110 active:scale-90" aria-label="View Cart">
